@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CartService } from 'src/app/core/services/cart.service';
 import { ProductService } from 'src/app/core/services/product.service';
 import { Product } from 'src/app/shared/models/product.model';
+import { Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-product-list',
@@ -16,13 +17,35 @@ export class ProductListComponent implements OnInit {
   searchQuery = '';
   selectedCategory: string = 'All';
   allProducts: any[] = [];
+  private searchSubscription!: Subscription;
+
   constructor(private productService: ProductService,private cartService: CartService) {}
 
   ngOnInit() {
     this.loadProducts();
     this.loadCategories();
-  }
+    this.searchSubscription = this.productService.searchQuery$.subscribe(query => {
+      this.searchQuery = query;
+      this.searchProducts();
+    });}
+  
 
+    ngOnDestroy() {
+      if (this.searchSubscription) {
+        this.searchSubscription.unsubscribe();
+      }
+    }
+
+    searchProducts() {
+       
+      if (this.searchQuery.trim()) {        
+        this.productService.searchProducts(this.searchQuery).subscribe(data => {
+          this.products = data.products;
+        });
+      } else {
+        this.products = this.allProducts;  
+      }
+    }
   loadProducts() {
     this.productService.getProducts(this.currentPage, 10).subscribe(data => {
       this.products = data.products;
@@ -40,11 +63,7 @@ export class ProductListComponent implements OnInit {
     });
   }
 
-  searchProducts() {
-    this.productService.searchProducts(this.searchQuery).subscribe(data => {
-      this.products = data.products;
-    });
-  }
+
 
   filterByCategory(category: string) {
     this.selectedCategory = category;
@@ -77,3 +96,7 @@ export class ProductListComponent implements OnInit {
     this.cartService.addToCart(productId);
   }
 }
+function ngOnDestroy(): any {
+  throw new Error('Function not implemented.');
+}
+

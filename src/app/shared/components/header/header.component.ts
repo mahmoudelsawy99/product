@@ -5,6 +5,7 @@ import { CartService } from 'src/app/core/services/cart.service';
 import { Store } from '@ngrx/store';
 import { selectCartCount } from 'src/app/Store/selectors/cart.selectors';
 import { addToCart } from 'src/app/Store/actions/cart.actions';
+import { Subject } from 'rxjs';
  @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -12,6 +13,8 @@ import { addToCart } from 'src/app/Store/actions/cart.actions';
 })
 export class HeaderComponent {
   cartCount$ = this.store.select(selectCartCount);
+  searchQuery = new Subject<string>();
+
   constructor(
     public authService: AuthService,
     public cartService: CartService,
@@ -24,8 +27,9 @@ export class HeaderComponent {
     this.store.dispatch(addToCart({ productId }));
   }
   searchProducts(event: any) {
-    const query = event.target.value;
-    this.productService.searchProducts(query).subscribe(data => {
-    });
+     
+    let query = event.target.value;
+    this.productService.setSearchQuery(query); 
+   
   }
 }

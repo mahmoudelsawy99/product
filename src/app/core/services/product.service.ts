@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Product } from 'src/app/shared/models/product.model';
 
 @Injectable({
@@ -9,7 +9,8 @@ import { Product } from 'src/app/shared/models/product.model';
 export class ProductService {
   private apiUrl = 'https://dummyjson.com/products';
   private categoryUrl = 'https://dummyjson.com/products/category';
-
+  private searchQuerySubject = new BehaviorSubject<string>('');
+  public searchQuery$ = this.searchQuerySubject.asObservable();
   constructor(private http: HttpClient) {}
 
   getProducts(page: number, limit: number): Observable<any> {
@@ -22,10 +23,15 @@ export class ProductService {
   }
 
   searchProducts(query: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}?search=${query}`);
+    return this.http.get<any>(`${this.apiUrl}/search?q=${query}`);
   }
 
   getProductsByCategory(category: string): Observable<any> {
     return this.http.get<any>(`${this.categoryUrl}/${category}`);
+  }
+
+  setSearchQuery(query: string) {
+     
+    this.searchQuerySubject.next(query);
   }
 }
