@@ -1,0 +1,84 @@
+   <div class="container">
+    <div class="product-listing">
+    <h1 class="page-title">iPhone</h1>
+    <nav aria-label="Breadcrumb">
+      <p class="breadcrumb">Home / Products / Smart Phones / <strong>iPhone</strong></p>
+    </nav>
+    <div class="product-grid">
+      <aside class="sidebar">
+        <div class="sidebar-content">
+          <h2 class="sidebar-title">Products</h2>
+           <div class="category-list">
+            <div class="checkbox-column">
+              <div class="category-list">
+                <label *ngFor="let category of categories">
+                  <input 
+                    class="radio-btn" 
+                    type="radio" 
+                    name="category" 
+                    [checked]="category === selectedCategory"
+                    (change)="filterByCategory(category)">
+                  {{ category }}
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+      <div class="product-row">
+        <article *ngFor="let product of products" class="product-card">
+          <div class="card-content">
+            <div class="product-image-wrapper">
+              <img [src]="product.thumbnail" [alt]="product.title" class="product-image">
+              <span class="discount-badge">- {{ product.discountPercentage }}%</span>
+            </div>
+            <div class="product-details">
+              <h3 class="product-title">{{ product.title | truncate:3  }}</h3>
+              <p class="product-description">{{ product.description | truncate:9 }}</p>
+              <div class="price-container">
+                <div class="original-price">
+                  <span class="price-value">{{ product.price  | decimal}}</span>
+                  <span class="currency">USD</span>
+                </div>
+                <div class="discounted-price">
+                  <span class="price-value">{{ product.price - (product.price * (product.discountPercentage / 100))  | decimal}}</span>
+                  <span class="currency">USD</span>
+                </div>
+              </div>
+              <div class="product-info">
+                <span class="info-label">Brand:</span>
+                <span class="info-value">{{ product.brand }}</span>
+              </div>
+              <div class="product-info">
+                <span class="info-label">Category:</span>
+                <span class="info-value">{{ product.category }}</span>
+              </div>
+              <div class="product-info">
+                <span class="info-label">In stock:</span>
+                <span class="info-value">{{ product.stock }}</span>
+              </div>
+              <div class="rating-container">
+                <div class="rating">
+                  <img src="../../../../assets/star.svg" alt="" class="rating-icon">
+                  <span class="rate">{{ product.rating }}</span>
+                </div>
+                <span class="review-count">({{ product.reviews.length }})</span>
+              </div>
+            </div>
+            <button (click)="addToCart(product.id)"  class="add-to-cart-btn">ADD TO CART</button>
+          </div>
+        </article>
+      </div>
+    </div>
+    <nav class="pagination" aria-label="Page navigation">
+      <img src="../../../../assets/prev.svg" alt="Previous page" class="pagination-arrow" (click)="changePage(currentPage - 1)">
+      <span *ngFor="let page of [].constructor(totalPages); let i = index" 
+            class="pagination-item" 
+            [class.active]="i + 1 === currentPage" 
+            (click)="changePage(i + 1)">
+        {{ i + 1 }}
+      </span>
+      <img src="../../../../assets/next.svg" alt="Next page" class="pagination-arrow" (click)="changePage(currentPage + 1)">
+    </nav>
+  <div>
+ </div>

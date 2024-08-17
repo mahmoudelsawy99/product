@@ -1,0 +1,40 @@
+<header class="header-navigation">
+    <div class="main-header">
+      <div class="header-container">
+        <div class="header-content">
+          <div class="logo-wrapper">
+            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/99bd2c6a8eec9664bec64f2ea7bf4e7e4a4f2cb904c5b6d81b85e6279be8db0f" alt="ClickTik Logo" class="logo-image">
+            <span class="logo-text">ClickTik</span>
+          </div>
+          <nav class="nav-menu">
+            <div class="nav-button">
+              <span class="nav-button-text">Home</span>
+            </div>
+          </nav>
+        </div>
+        <div class="header-actions">
+            <div class="search-container">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="search-icon">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M14.7106 14H15.5006L19.7406 18.26C20.1506 18.67 20.1506 19.34 19.7406 19.75C19.3306 20.16 18.6606 20.16 18.2506 19.75L14.0006 15.5V14.71L13.7306 14.43C12.3306 15.63 10.4206 16.25 8.39063 15.91C5.61063 15.44 3.39063 13.12 3.05063 10.32C2.53063 6.09002 6.09063 2.53002 10.3206 3.05002C13.1206 3.39002 15.4406 5.61002 15.9106 8.39002C16.2506 10.42 15.6306 12.33 14.4306 13.73L14.7106 14ZM5.00063 9.50002C5.00063 11.99 7.01063 14 9.50063 14C11.9906 14 14.0006 11.99 14.0006 9.50002C14.0006 7.01002 11.9906 5.00002 9.50063 5.00002C7.01063 5.00002 5.00063 7.01002 5.00063 9.50002Z" fill="#999999"/>
+                </svg>
+                <input class="search-input" type="text" placeholder="Search" (keyup.enter)="searchProducts($event)">
+              </div>
+              <div *ngIf="authService.isAuthenticated()" class="header-actions">
+                <div class="cart-container">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" class="cart-icon">
+                    <path d="M3.60039 1.19995C2.93765 1.19995 2.40039 1.73722 2.40039 2.39995C2.40039 3.06269 2.93765 3.59995 3.60039 3.59995H5.06345L5.43013 5.06664C5.43398 5.08359 5.43819 5.10042 5.44275 5.1171L7.07143 11.6318L6.00033 12.7029C4.48841 14.2148 5.55921 16.8 7.69738 16.8H18.0004C18.663 16.8 19.2004 16.2627 19.2004 15.6C19.2004 14.9372 18.663 14.4 18.0004 14.4H7.69739L8.89738 13.2H16.8004C17.255 13.2 17.6704 12.9432 17.8737 12.5366L21.4737 5.3366C21.6597 4.96463 21.6399 4.52286 21.4212 4.16908C21.2025 3.81529 20.8163 3.59995 20.4004 3.59995H7.53733L7.16456 2.1089C7.03101 1.57471 6.55103 1.19995 6.00039 1.19995H3.60039Z" fill="#667085"/>
+                    <path d="M19.1996 19.8C19.1996 20.7941 18.3937 21.6 17.3996 21.6C16.4055 21.6 15.5996 20.7941 15.5996 19.8C15.5996 18.8059 16.4055 18 17.3996 18C18.3937 18 19.1996 18.8059 19.1996 19.8Z" fill="#667085"/>
+                    <path d="M7.8 21.6C8.79412 21.6 9.6 20.7941 9.6 19.8C9.6 18.8059 8.79412 18 7.8 18C6.80588 18 6 18.8059 6 19.8C6 20.7941 6.80588 21.6 7.8 21.6Z" fill="#667085"/>
+                  </svg>
+                  <span class="cart-badge">{{ cartService.getCartCount() }}</span>
+                </div>
+              </div>
+          <div *ngIf="authService.isAuthenticated()" class="account-icon">Account</div>
+          <div *ngIf="!authService.isAuthenticated()" class="login-button">
+            <div class="login-button-text">Log in</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="header-divider"></div>
+  </header>

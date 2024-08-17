@@ -1,0 +1,47 @@
+<!-- <form (ngSubmit)="login()">
+  <input [(ngModel)]="username" name="username" placeholder="Username" required>
+  <input [(ngModel)]="password" name="password" type="password" placeholder="Password" required>
+  <button type="submit">Login</button>
+</form> -->
+<div class="login-container">
+  <div class="login-content">
+      
+ 
+      <section class="login-form-section">
+          <div class="login-form-container">
+              <div class="login-form-header">
+                  <img src="../../../../assets/Logomark.png"
+                      alt="Login Logo" class="login-logo">
+                  <div class="login-title-wrapper">
+                      <h1 class="login-title">Log in to your account</h1>
+                      <p class="login-subtitle">Welcome back! Please enter your details.</p>
+                  </div>
+              </div>
+              <form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form">
+                <div class="form-field">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" id="email" class="form-input" formControlName="email" placeholder="Enter your email" required>
+                  <div *ngIf="formControls['email'].invalid && formControls['email'].touched" class="error">
+                    <small *ngIf="formControls['email'].errors?.['required']">Email is required</small>
+                   </div>
+                </div>
+              
+                <div class="form-field">
+                  <label for="password" class="form-label">Password</label>
+                  <input type="password" id="password" class="form-input" formControlName="password" placeholder="*********" required>
+                  <div *ngIf="formControls['password'].invalid && formControls['password'].touched" class="error">
+                    <small *ngIf="formControls['password'].errors?.['required']">Password is required</small>
+                   </div>
+                </div>
+              
+                <div class="form-submit">
+                  <button type="submit" class="submit-button" [disabled]="loginForm.invalid">Sign in</button>
+                </div>
+              </form>
+              
+          </div>
+      </section>
+  </div>
+
+   
+</div>
